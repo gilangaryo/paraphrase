@@ -9,8 +9,18 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
-            margin: 50px 400px 50px 400px;
-            
+            margin: 20px;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form,
+        .output {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         textarea {
@@ -27,6 +37,7 @@
             color: white;
             border: none;
             border-radius: 10px;
+            width: 100%;
         }
 
         .output textarea {
@@ -34,6 +45,39 @@
             font-family: 'Times New Roman', Times, serif;
             resize: none;
             margin-bottom: 10px;
+        }
+
+        /* Media Query for Larger Screens */
+        @media (min-width: 768px) {
+            body {
+                margin: 50px auto;
+                font-size: 14px;
+            }
+
+            form,
+            .output {
+                max-width: 600px;
+            }
+
+            button {
+                width: auto;
+            }
+        }
+
+        /* Media Query for Extra Large Screens */
+        @media (min-width: 1200px) {
+            body {
+                margin: 50px 400px;
+                font-size: 16px;
+            }
+
+            textarea {
+                height: 150px;
+            }
+
+            .output textarea {
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -47,7 +91,7 @@
         <button type="button" onclick="paraphraseText()">Paraphrase</button>
     </form>
     <div class="output">
-        <h1>output</h1>
+        <h1>Output</h1>
         <textarea id="output-text" readonly></textarea>
         <button type="button" onclick="copyToClipboard()">Copy Output</button>
     </div>
