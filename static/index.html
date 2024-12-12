@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOBOI TAK BOBOI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 50px 400px 50px 400px;
+            
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008080;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .output textarea {
+            height: 300px;
+            font-family: 'Times New Roman', Times, serif;
+            resize: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>BOBOI PARAPRACEE</h1>
+    <form id="paraphrasing-form">
+        <textarea id="input-text" placeholder="Enter text to paraphrase" style="height:150px;"></textarea>
+        <textarea id="additional-instructions" placeholder="Additional instructions (optional)"
+            style="height:100px;"></textarea>
+        <button type="button" onclick="paraphraseText()">Paraphrase</button>
+    </form>
+    <div class="output">
+        <h1>output</h1>
+        <textarea id="output-text" readonly></textarea>
+        <button type="button" onclick="copyToClipboard()">Copy Output</button>
+    </div>
+
+    <script>
+        // Function to send the input text and additional instructions to the backend and get paraphrased output
+        async function paraphraseText() {
+            const inputText = document.getElementById('input-text').value;
+            const additionalInstructions = document.getElementById('additional-instructions').value;
+
+            const response = await fetch('/paraphrase', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: inputText, additional_instructions: additionalInstructions })
+            });
+
+            const result = await response.json();
+            document.getElementById('output-text').value = result.paraphrased_text || result.error || '';
+        }
+
+        // Function to copy the output text to the clipboard
+        function copyToClipboard() {
+            const outputText = document.getElementById('output-text');
+            outputText.select(); // Select the text inside the textarea
+            document.execCommand('copy'); // Copy the selected text to clipboard
+            alert('Output copied to clipboard!'); // Optional: Alert the user
+        }
+    </script>
+</body>
+
+</html>
