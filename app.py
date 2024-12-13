@@ -43,7 +43,7 @@ def paraphrase():
             system_message_content += f"\nInstruksi tambahan: {additional_instructions}"
 
         # New OpenAI API call structure
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {
